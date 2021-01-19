@@ -48,6 +48,24 @@ app.put('/addemployee',(req,res) => {
 
 })
 
+app.put('/editemployee',(req,res) => {
+    const {email,name,id,job_title,date_of_birth} = req.body;
+    if (!email || !name || !id || !job_title || !date_of_birth) {
+        return  res.status(400).json('incorrect form submission')
+     }
+     db('employees')
+     .returning('*')
+     .where({id:id})
+     .update({
+         email:email,
+         name:name,
+         job_title:job_title,
+         date_of_birth:date_of_birth
+     }).then(employee => res.json(employee[0]))
+
+})
+
+
 
 
 app.listen(process.env.PORT || 3000,() => {
