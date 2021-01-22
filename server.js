@@ -32,8 +32,8 @@ app.get('/',(req,res) => {
 })
 
 app.put('/addemployee',(req,res) => {
-    const {email,name,id,job_title,date_of_birth} = req.body;
-    if (!email || !name || !id || !job_title || !date_of_birth) {
+    const {email,name,id,job_title,date_of_birth,department} = req.body;
+    if (!email || !name || !id || !job_title || !date_of_birth || !department) {
         return  res.status(400).json('incorrect form submission')
      }
      db('employees')
@@ -43,14 +43,15 @@ app.put('/addemployee',(req,res) => {
          name:name,
          id:id,
          job_title:job_title,
-         date_of_birth:date_of_birth
+         date_of_birth:date_of_birth,
+         department:department
      }).then(employee => res.json(employee[0]))
 
 })
 
 app.put('/editemployee',(req,res) => {
-    const {email,name,id,job_title,date_of_birth} = req.body;
-    if (!email || !name || !id || !job_title || !date_of_birth) {
+    const {email,name,id,job_title,date_of_birth,department} = req.body;
+    if (!email || !name || !id || !job_title || !date_of_birth || !department) {
         return  res.status(400).json('incorrect form submission')
      }
      db('employees')
@@ -60,7 +61,8 @@ app.put('/editemployee',(req,res) => {
          email:email,
          name:name,
          job_title:job_title,
-         date_of_birth:date_of_birth
+         date_of_birth:date_of_birth,
+         department:department
      }).then(employee => res.json(employee[0]))
 
 })
